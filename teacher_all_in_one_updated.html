@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>수학 학습관 — 교사용 01~05 단일 HTML (S02 업데이트)</title>
+
+  <!-- Pretendard (CDN) -->
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css" />
+
+  <!-- Tailwind (CDN) -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Pretendard','system-ui','Apple SD Gothic Neo','Noto Sans KR','Segoe UI','Roboto','Arial','sans-serif']
+          },
+          colors: {
+            primary: { DEFAULT:'#4E86C6' },
+            accent:  { DEFAULT:'#F59E0B' }
+          }
+        }
+      }
+    };
+  </script>
+
+  <style>
+    :focus-visible { outline: 3px solid #0284c7; outline-offset: 2px; }
+    html { scroll-behavior:smooth; }
+    section.slide { padding-top: 2rem; padding-bottom: 6rem; }
+    .overlay { position: fixed; inset: 0; display: none; background: #fff; z-index: 40; overflow:auto; padding-top: 48px; }
+    .overlay:target { display: block; }
+    .btn { display:inline-flex; align-items:center; justify-content:center; }
+  </style>
+</head>
+<body class="font-sans text-slate-900 text-[18px] leading-[1.6]">
+
+  <!-- 헤더 -->
+  <header class="h-12 px-8 flex items-center justify-between bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/70 border-b sticky top-0 z-50">
+    <a href="#s01" class="btn w-12 h-12 rounded-lg hover:bg-slate-100" aria-label="홈(01)으로 이동">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="w-8 h-8">
+        <path d="M3 10.5L12 3l9 7.5V21a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1v-10.5z" fill="none" stroke="currentColor" stroke-width="1.75"/>
+      </svg>
+    </a>
+    <div class="flex-1"></div>
+    <div class="flex items-center gap-4">
+      <button class="btn relative w-11 h-11 rounded-lg hover:bg-slate-100" aria-label="알림">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="w-7 h-7">
+          <path d="M12 22a2.5 2.5 0 0 0 2.5-2.5h-5A2.5 2.5 0 0 0 12 22Zm7-6V11a7 7 0 1 0-14 0v5l-2 2h18l-2-2Z" fill="none" stroke="currentColor" stroke-width="1.5"/>
+        </svg>
+        <span class="absolute -top-1 -right-1 inline-flex items-center justify-center w-4 h-4 text-[10px] rounded-full bg-red-500 text-white">1</span>
+      </button>
+      <a href="#s05" class="btn h-11 px-4 rounded-lg bg-primary text-white hover:opacity-90 text-sm">나의 학습관</a>
+      <div class="relative">
+        <button class="btn h-11 px-4 rounded-lg bg-primary/80 text-white hover:opacity-90 text-sm" data-dd="info">내 정보 ▾</button>
+        <div class="absolute right-0 mt-2 w-40 rounded-xl border bg-white shadow-lg p-2 hidden" data-dd-panel="info" role="menu">
+          <a class="block px-3 py-2 rounded-lg hover:bg-slate-50 text-sm" href="#" role="menuitem">활용 안내</a>
+          <a class="block px-3 py-2 rounded-lg hover:bg-slate-50 text-sm" href="#" role="menuitem">설정</a>
+          <a class="block px-3 py-2 rounded-lg hover:bg-rose-50 text-sm" href="#" role="menuitem">로그아웃</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- 01. 학습맵 선택 -->
+  <section id="s01" class="slide">
+    <div class="max-w-6xl mx-auto px-6 pb-4 text-center">
+      <h1 class="text-[32px] font-extrabold mt-6">김비상 선생님,<br/>수학 학습관에 오신 것을 환영합니다.</h1>
+
+      <!-- 진단/형성 토글 -->
+      <div class="mt-6 flex items-center justify-center gap-3" id="modeToggle" role="tablist" aria-label="평가 유형 선택">
+        <button data-mode="diagnostic" class="btn h-12 px-6 rounded-full border bg-white text-slate-700" role="tab" aria-selected="false">진단</button>
+        <button data-mode="formative" class="btn h-12 px-6 rounded-full border bg-primary text-white" role="tab" aria-selected="true">형성</button>
+      </div>
+
+      <!-- 검색줄 -->
+      <div class="mt-6 mx-auto flex items-center justify-center gap-2">
+        <div class="relative w-[560px]">
+          <input type="text" placeholder="단원, 차시 또는 개념을 검색해 보세요" class="w-full h-14 rounded-full border border-slate-400 px-6 pr-14 text-slate-600 placeholder-slate-400" />
+          <button class="btn absolute right-3 top-1/2 -translate-y-1/2 p-2" aria-label="검색">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-7 h-7" viewBox="0 0 24 24"><path d="m21 21-4.35-4.35m1.85-5.15a7 7 0 1 1-14 0 7 7 0 0 1 14 0Z" fill="none" stroke="currentColor" stroke-width="1.75"/></svg>
+          </button>
+        </div>
+        <button class="btn w-8 h-8 rounded-md border border-slate-400" aria-label="옵션">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="w-5 h-5"><path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>
+        </button>
+      </div>
+
+      <!-- 학습맵 이미지 -->
+      <figure class="mt-6">
+        <img id="mapImage" src="./학습맵 이미지(2뎁스).png" alt="학습맵 (형성=2뎁스 / 진단=1뎁스)" class="mx-auto max-w-[960px]" />
+      </figure>
+
+      <div class="mt-8">
+        <a href="#s02" class="btn gap-2 text-sky-700 underline decoration-dotted">이 선택으로 진행하기
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24"><path d="M12 5v14m7-7H5" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- 02. 진단/형성 선택 (슬라이드3 스타일) -->
+  <section id="s02" class="slide bg-white">
+    <div class="max-w-5xl mx-auto px-6">
+      <!-- 바깥 카드 -->
+      <div class="mt-6 rounded-[24px] bg-sky-100/90 p-6 md:p-7">
+        <div class="mx-auto max-w-3xl">
+          <!-- 안쪽 박스 -->
+          <div class="h-16 rounded-[16px] border border-sky-200/70 bg-slate-50/70"></div>
+          <div class="mt-5 text-slate-700 leading-relaxed">
+            <p>관련 단원: <strong>5학년 1학기 2. 약수와 배수</strong></p>
+            <p class="mt-2">관련 이전 학습 내역:</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 중앙 문구 + 버튼 -->
+      <div class="mt-16 text-center">
+        <p class="text-[28px] md:text-[30px] font-extrabold leading-[1.35]">
+          위 개념으로<br/>어떤 평가를 진행할까요?
+        </p>
+        <div class="mt-10 flex items-center justify-center gap-10">
+          <a href="#s03" class="btn h-16 px-12 rounded-[14px] bg-primary text-white text-xl font-semibold shadow-sm hover:opacity-90">진단평가</a>
+          <a href="#s03" class="btn h-16 px-12 rounded-[14px] bg-primary text-white text-xl font-semibold shadow-sm hover:opacity-90">형성평가</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 03. 세트지 미리보기 (오버레이) -->
+  <section id="s03" class="overlay">
+    <div class="max-w-6xl mx-auto px-6 pb-24">
+      <h2 class="text-2xl font-extrabold text-center mt-4">형성평가를 만들었어요!</h2>
+      <div class="mt-6 flex items-center justify-between">
+        <div class="flex items-center gap-3">
+          <span class="inline-flex items-center h-9 px-4 rounded-full border text-sm">공약수와 최대공약수</span>
+        </div>
+        <span class="inline-flex items-center h-8 px-3 rounded-full bg-slate-100 text-slate-600 text-sm">총 10문제</span>
+      </div>
+
+      <div class="mt-4 rounded-2xl border-[2.5px] border-slate-300 p-6 min-h-[320px] relative">
+        <div class="absolute top-3 right-3">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24"><path d="M8 3H5a2 2 0 0 0-2 2v3M16 21h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3M21 8V5a2 2 0 0 0-2-2h-3" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>
+        </div>
+        <div class="h-56 flex items-center justify-center">
+          <img src="./세트지 이미지.svg" alt="세트지 미리보기" class="max-h-56" />
+        </div>
+      </div>
+
+      <div class="mt-10 flex items-center justify-center gap-8">
+        <a href="javascript:void(0)" class="btn h-12 px-8 rounded-xl bg-primary text-white text-lg" data-open-modal="#share">시작하기</a>
+        <a href="#s02" class="btn h-12 px-8 rounded-xl bg-primary/90 text-white text-lg">편집하기</a>
+        <a href="#s01" class="btn h-12 px-8 rounded-xl border">닫기</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- 공유 팝업 -->
+  <div id="share" class="fixed inset-0 z-50 hidden" role="dialog" aria-modal="true" aria-labelledby="shareTitle">
+    <div class="absolute inset-0 bg-black/30" data-close-modal></div>
+    <div class="relative max-w-3xl mx-auto mt-24 bg-white rounded-2xl shadow-xl p-8">
+      <div class="flex items-center gap-3">
+        <span class="inline-flex items-center h-8 px-3 rounded-lg bg-amber-500/90 text-white text-sm">형성</span>
+        <h2 id="shareTitle" class="text-xl font-bold">공약수와 최대공약수</h2>
+      </div>
+      <div class="mt-6 grid grid-cols-[120px_1fr] gap-x-6 gap-y-4 items-center">
+        <div class="text-slate-600">일시</div>
+        <div>2025. 10. 28. (수)</div>
+        <div class="text-slate-600">공유</div>
+        <div>
+          <div class="flex items-center">
+            <input class="w-full h-12 rounded-xl border px-3" value="[비바클래스] 비상초등학교 3학년 1반" />
+            <button class="w-10 h-12 -ml-10 opacity-60" aria-label="열기">
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 mx-auto" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>
+            </button>
+          </div>
+          <label class="mt-3 inline-flex items-center gap-2 text-sm">
+            <input type="checkbox" class="size-4" />
+            일회성 링크 생성하기
+            <span class="ml-1 inline-flex items-center justify-center w-5 h-5 rounded-full border text-xs" title="일회성 링크를 생성할 경우, 학생의 학습 이력이 누적되지 않습니다.">i</span>
+          </label>
+        </div>
+      </div>
+      <div class="mt-8 flex items-center justify-end gap-4">
+        <button class="btn h-11 px-6 rounded-xl border bg-slate-50" data-close-modal>취소</button>
+        <a href="#s04" class="btn h-11 px-6 rounded-xl bg-primary text-white">시작하기</a>
+      </div>
+      <button class="absolute right-4 top-4 w-10 h-10 rounded-full hover:bg-slate-100" data-close-modal aria-label="닫기">✕</button>
+    </div>
+  </div>
+
+  <!-- 04. 리포트 (오버레이) -->
+  <section id="s04" class="overlay">
+    <div class="max-w-[1200px] mx-auto px-6 pb-28">
+      <h2 class="text-3xl font-extrabold mt-2">리포트</h2>
+      <div class="mt-3 flex items-center gap-3">
+        <span class="inline-flex items-center h-8 px-3 rounded-lg bg-amber-500/90 text-white text-sm">형성</span>
+        <span class="font-semibold">공약수와 최대공약수</span>
+        <span class="h-8 px-3 rounded-lg bg-slate-100 text-sm">2025. 10. 28. (수)</span>
+        <span class="h-8 px-3 rounded-lg bg-slate-100 text-sm">비바클래스 공유</span>
+        <span class="ml-auto text-sm text-slate-600">i</span>
+      </div>
+
+      <hr class="mt-4"/>
+
+      <section class="mt-6 grid grid-cols-[120px_1fr] gap-4">
+        <div class="space-y-6 pr-2">
+          <div class="h-20 rounded-xl bg-emerald-100 flex items-center justify-center text-slate-700">6명</div>
+          <div class="h-20 rounded-xl bg-amber-100  flex items-center justify-center text-slate-700">11명</div>
+          <div class="h-20 rounded-xl bg-rose-100   flex items-center justify-center text-slate-700">3명</div>
+        </div>
+
+        <div class="space-y-6">
+          <div class="rounded-2xl border-2 border-slate-300 p-4 flex items-center gap-4">
+            <div class="w-44 h-28 rounded-lg border overflow-hidden flex items-center justify-center bg-white">
+              <span class="text-xs text-slate-500">미리보기</span>
+            </div>
+            <div class="flex-1">
+              <div class="text-sm text-slate-600">[학습지] AI 연산 학습지 – 3단원 5차시(1)</div>
+            </div>
+            <button class="btn w-12 h-24 rounded-xl bg-slate-300/80 text-2xl">+</button>
+          </div>
+          <div class="rounded-2xl border-2 border-slate-300 p-4 flex items-center gap-4">
+            <div class="w-44 h-28 rounded-lg border overflow-hidden flex items-center justify-center bg-white">
+              <span class="text-xs text-slate-500">미리보기</span>
+            </div>
+            <div class="flex-1">
+              <div class="text-sm text-slate-600">[학습지] AI 연산 학습지 – 3단원 5차시(1)</div>
+            </div>
+            <button class="btn w-12 h-24 rounded-xl bg-slate-300/80 text-2xl">+</button>
+          </div>
+          <div class="rounded-2xl border-2 border-slate-300 p-4 flex items-center gap-4">
+            <div class="w-44 h-28 rounded-lg border overflow-hidden flex items-center justify-center bg-white">
+              <span class="text-xs text-slate-500">미리보기</span>
+            </div>
+            <div class="flex-1">
+              <div class="text-sm text-slate-600">소수의 크기 비교(개념 영상)_68p</div>
+            </div>
+            <button class="btn w-12 h-24 rounded-xl bg-slate-300/80 text-2xl">+</button>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- 하단 고정 바 (04 전용) -->
+    <div class="fixed left-0 right-0 bottom-0 bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/70 border-t z-50">
+      <div class="max-w-[1200px] mx-auto px-6 py-3 flex items-center justify-end gap-3">
+        <a href="#s05" class="btn h-12 px-6 rounded-lg border bg-white">목록</a>
+        <button class="btn h-12 px-6 rounded-lg bg-red-600 text-white">처방하기</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- 05. 나의 학습관 (오버레이) -->
+  <section id="s05" class="overlay">
+    <div class="max-w-[1200px] mx-auto px-6 pb-24">
+      <h2 class="text-3xl font-extrabold mt-2">나의 학습관</h2>
+
+      <div class="mt-6 grid grid-cols-1 md:grid-cols-2 gap-6">
+        <section class="rounded-2xl border-2 border-amber-300 p-6">
+          <h3 class="text-2xl font-extrabold mb-4">형성 평가 분석</h3>
+          <ul class="space-y-3 text-lg">
+            <li>취약 단원</li>
+            <li>1위 덧셈과 뺄셈</li>
+            <li>2위 원</li>
+          </ul>
+        </section>
+        <section class="rounded-2xl bg-amber-100 p-6">
+          <h3 class="text-2xl font-extrabold mb-4">AI 요약</h3>
+          <ul class="list-disc pl-6 space-y-3 text-lg">
+            <li>나눗셈 단원에서 분수 개념 혼동 비율이 37%입니다.</li>
+            <li>복습 과제 ‘나눗셈 다시 보기’를 추천합니다.</li>
+          </ul>
+        </section>
+      </div>
+
+      <!-- 학습 이력(클릭 시 04로 이동) -->
+      <section class="mt-10 rounded-2xl bg-sky-100 p-6">
+        <style>
+          .history-link{display:block;border-radius:0.75rem;padding:0.75rem;background:#e6f0fb;transition:background .15s}
+          .history-link:hover{background:#d9e9fb}
+        </style>
+
+        <a href="#s04" class="history-link no-underline text-inherit flex items-center gap-3" aria-label="리포트로 이동: 분수의 나눗셈 (형성, 처방 완료)">
+          <span class="inline-flex items-center h-8 px-3 rounded-lg bg-amber-500/90 text-white text-sm">형성</span>
+          <span class="inline-flex items-center h-8 px-3 rounded-lg bg-slate-300 text-sm">처방 완료</span>
+          <strong class="ml-1">분수의 나눗셈</strong>
+          <span class="ml-4 text-slate-700">25. 10. 21. (수)</span>
+        </a>
+
+        <a href="#s04" class="mt-3 history-link no-underline text-inherit flex items-center gap-3" a
