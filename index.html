@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>수학 학습관 — 교사용 01~05 단일 HTML (S02 업데이트)</title>
+  <title>수학 학습관 — 교사용 01~05 단일 HTML (수정본)</title>
 
   <!-- Pretendard (CDN) -->
   <link rel="preconnect" href="https://cdn.jsdelivr.net" />
@@ -53,7 +53,11 @@
         </svg>
         <span class="absolute -top-1 -right-1 inline-flex items-center justify-center w-4 h-4 text-[10px] rounded-full bg-red-500 text-white">1</span>
       </button>
+
+      <!-- 나의 학습관 -->
       <a href="#s05" class="btn h-11 px-4 rounded-lg bg-primary text-white hover:opacity-90 text-sm">나의 학습관</a>
+
+      <!-- 내 정보 드롭다운 -->
       <div class="relative">
         <button class="btn h-11 px-4 rounded-lg bg-primary/80 text-white hover:opacity-90 text-sm" data-dd="info">내 정보 ▾</button>
         <div class="absolute right-0 mt-2 w-40 rounded-xl border bg-white shadow-lg p-2 hidden" data-dd-panel="info" role="menu">
@@ -102,13 +106,11 @@
     </div>
   </section>
 
-  <!-- 02. 진단/형성 선택 (슬라이드3 스타일) -->
+  <!-- 02. (한 버튼) 평가 만들기 -->
   <section id="s02" class="slide bg-white">
     <div class="max-w-5xl mx-auto px-6">
-      <!-- 바깥 카드 -->
       <div class="mt-6 rounded-[24px] bg-sky-100/90 p-6 md:p-7">
         <div class="mx-auto max-w-3xl">
-          <!-- 안쪽 박스 -->
           <div class="h-16 rounded-[16px] border border-sky-200/70 bg-slate-50/70"></div>
           <div class="mt-5 text-slate-700 leading-relaxed">
             <p>관련 단원: <strong>5학년 1학기 2. 약수와 배수</strong></p>
@@ -117,14 +119,13 @@
         </div>
       </div>
 
-      <!-- 중앙 문구 + 버튼 -->
       <div class="mt-16 text-center">
         <p class="text-[28px] md:text-[30px] font-extrabold leading-[1.35]">
           위 개념으로<br/>어떤 평가를 진행할까요?
         </p>
-        <div class="mt-10 flex items-center justify-center gap-10">
-          <a href="#s03" class="btn h-16 px-12 rounded-[14px] bg-primary text-white text-xl font-semibold shadow-sm hover:opacity-90">진단평가</a>
-          <a href="#s03" class="btn h-16 px-12 rounded-[14px] bg-primary text-white text-xl font-semibold shadow-sm hover:opacity-90">형성평가</a>
+        <div class="mt-10 flex items-center justify-center">
+          <!-- 단일 버튼 -->
+          <a href="#s03" class="btn h-16 px-14 rounded-[14px] bg-primary text-white text-xl font-semibold shadow-sm hover:opacity-90">평가 만들기</a>
         </div>
       </div>
     </div>
@@ -134,24 +135,16 @@
   <section id="s03" class="overlay">
     <div class="max-w-6xl mx-auto px-6 pb-24">
       <h2 class="text-2xl font-extrabold text-center mt-4">형성평가를 만들었어요!</h2>
-      <div class="mt-6 flex items-center justify-between">
-        <div class="flex items-center gap-3">
-          <span class="inline-flex items-center h-9 px-4 rounded-full border text-sm">공약수와 최대공약수</span>
-        </div>
-        <span class="inline-flex items-center h-8 px-3 rounded-full bg-slate-100 text-slate-600 text-sm">총 10문제</span>
-      </div>
 
       <div class="mt-4 rounded-2xl border-[2.5px] border-slate-300 p-6 min-h-[320px] relative">
-        <div class="absolute top-3 right-3">
-          <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24"><path d="M8 3H5a2 2 0 0 0-2 2v3M16 21h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3M21 8V5a2 2 0 0 0-2-2h-3" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>
-        </div>
         <div class="h-56 flex items-center justify-center">
           <img src="./세트지 이미지.svg" alt="세트지 미리보기" class="max-h-56" />
         </div>
       </div>
 
       <div class="mt-10 flex items-center justify-center gap-8">
-        <a href="javascript:void(0)" class="btn h-12 px-8 rounded-xl bg-primary text-white text-lg" data-open-modal="#share">시작하기</a>
+        <!-- 팝업 열기: a 대신 button + data-open-modal -->
+        <button type="button" class="btn h-12 px-8 rounded-xl bg-primary text-white text-lg" data-open-modal="#share">시작하기</button>
         <a href="#s02" class="btn h-12 px-8 rounded-xl bg-primary/90 text-white text-lg">편집하기</a>
         <a href="#s01" class="btn h-12 px-8 rounded-xl border">닫기</a>
       </div>
@@ -192,103 +185,71 @@
     </div>
   </div>
 
-  <!-- 04. 리포트 (오버레이) -->
-  <section id="s04" class="overlay">
-    <div class="max-w-[1200px] mx-auto px-6 pb-28">
-      <h2 class="text-3xl font-extrabold mt-2">리포트</h2>
-      <div class="mt-3 flex items-center gap-3">
-        <span class="inline-flex items-center h-8 px-3 rounded-lg bg-amber-500/90 text-white text-sm">형성</span>
-        <span class="font-semibold">공약수와 최대공약수</span>
-        <span class="h-8 px-3 rounded-lg bg-slate-100 text-sm">2025. 10. 28. (수)</span>
-        <span class="h-8 px-3 rounded-lg bg-slate-100 text-sm">비바클래스 공유</span>
-        <span class="ml-auto text-sm text-slate-600">i</span>
-      </div>
+  <!-- 04, 05 오버레이의 뼈대만 유지 -->
+  <section id="s04" class="overlay"><div class="max-w-[1200px] mx-auto px-6 pb-24"><h2 class="text-3xl font-extrabold">리포트</h2></div></section>
+  <section id="s05" class="overlay"><div class="max-w-[1200px] mx-auto px-6 pb-24"><h2 class="text-3xl font-extrabold">나의 학습관</h2></div></section>
 
-      <hr class="mt-4"/>
+  <!-- 스크립트 -->
+  <script>
+    /* ---------- 내 정보 드롭다운 ---------- */
+    document.addEventListener('click', (e) => {
+      const btn = e.target.closest('[data-dd]');
+      const panel = btn ? document.querySelector(`[data-dd-panel="${btn.getAttribute('data-dd')}"]`) : null;
+      if (btn && panel) {
+        e.stopPropagation();               // 토글 클릭 시 바깥 클릭 핸들러와 충돌 방지
+        panel.classList.toggle('hidden');  // 열고/닫기
+        return;
+      }
+      // 버튼/패널 외부 클릭 시 모두 닫기
+      if (!e.target.closest('[data-dd-panel]')) {
+        document.querySelectorAll('[data-dd-panel]').forEach(p => p.classList.add('hidden'));
+      }
+    });
 
-      <section class="mt-6 grid grid-cols-[120px_1fr] gap-4">
-        <div class="space-y-6 pr-2">
-          <div class="h-20 rounded-xl bg-emerald-100 flex items-center justify-center text-slate-700">6명</div>
-          <div class="h-20 rounded-xl bg-amber-100  flex items-center justify-center text-slate-700">11명</div>
-          <div class="h-20 rounded-xl bg-rose-100   flex items-center justify-center text-slate-700">3명</div>
-        </div>
+    /* ---------- 공유 팝업 열기/닫기 ---------- */
+    document.addEventListener('click', (e) => {
+      const opener = e.target.closest('[data-open-modal]');
+      if (opener) {
+        const sel = opener.getAttribute('data-open-modal') || '#share';
+        const m = document.querySelector(sel);
+        if (m) { m.classList.remove('hidden'); m.dataset.open='true'; }
+        e.preventDefault();
+        e.stopPropagation();
+        return;
+      }
+      if (e.target.closest('[data-close-modal]') || e.target.matches('#share > .absolute')) {
+        const m = document.querySelector('#share');
+        if (m) { m.classList.add('hidden'); m.dataset.open='false'; }
+      }
+    });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        const m = document.querySelector('#share');
+        if (m && m.dataset.open==='true') { m.classList.add('hidden'); m.dataset.open='false'; }
+      }
+    });
 
-        <div class="space-y-6">
-          <div class="rounded-2xl border-2 border-slate-300 p-4 flex items-center gap-4">
-            <div class="w-44 h-28 rounded-lg border overflow-hidden flex items-center justify-center bg-white">
-              <span class="text-xs text-slate-500">미리보기</span>
-            </div>
-            <div class="flex-1">
-              <div class="text-sm text-slate-600">[학습지] AI 연산 학습지 – 3단원 5차시(1)</div>
-            </div>
-            <button class="btn w-12 h-24 rounded-xl bg-slate-300/80 text-2xl">+</button>
-          </div>
-          <div class="rounded-2xl border-2 border-slate-300 p-4 flex items-center gap-4">
-            <div class="w-44 h-28 rounded-lg border overflow-hidden flex items-center justify-center bg-white">
-              <span class="text-xs text-slate-500">미리보기</span>
-            </div>
-            <div class="flex-1">
-              <div class="text-sm text-slate-600">[학습지] AI 연산 학습지 – 3단원 5차시(1)</div>
-            </div>
-            <button class="btn w-12 h-24 rounded-xl bg-slate-300/80 text-2xl">+</button>
-          </div>
-          <div class="rounded-2xl border-2 border-slate-300 p-4 flex items-center gap-4">
-            <div class="w-44 h-28 rounded-lg border overflow-hidden flex items-center justify-center bg-white">
-              <span class="text-xs text-slate-500">미리보기</span>
-            </div>
-            <div class="flex-1">
-              <div class="text-sm text-slate-600">소수의 크기 비교(개념 영상)_68p</div>
-            </div>
-            <button class="btn w-12 h-24 rounded-xl bg-slate-300/80 text-2xl">+</button>
-          </div>
-        </div>
-      </section>
-    </div>
-
-    <!-- 하단 고정 바 (04 전용) -->
-    <div class="fixed left-0 right-0 bottom-0 bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/70 border-t z-50">
-      <div class="max-w-[1200px] mx-auto px-6 py-3 flex items-center justify-end gap-3">
-        <a href="#s05" class="btn h-12 px-6 rounded-lg border bg-white">목록</a>
-        <button class="btn h-12 px-6 rounded-lg bg-red-600 text-white">처방하기</button>
-      </div>
-    </div>
-  </section>
-
-  <!-- 05. 나의 학습관 (오버레이) -->
-  <section id="s05" class="overlay">
-    <div class="max-w-[1200px] mx-auto px-6 pb-24">
-      <h2 class="text-3xl font-extrabold mt-2">나의 학습관</h2>
-
-      <div class="mt-6 grid grid-cols-1 md:grid-cols-2 gap-6">
-        <section class="rounded-2xl border-2 border-amber-300 p-6">
-          <h3 class="text-2xl font-extrabold mb-4">형성 평가 분석</h3>
-          <ul class="space-y-3 text-lg">
-            <li>취약 단원</li>
-            <li>1위 덧셈과 뺄셈</li>
-            <li>2위 원</li>
-          </ul>
-        </section>
-        <section class="rounded-2xl bg-amber-100 p-6">
-          <h3 class="text-2xl font-extrabold mb-4">AI 요약</h3>
-          <ul class="list-disc pl-6 space-y-3 text-lg">
-            <li>나눗셈 단원에서 분수 개념 혼동 비율이 37%입니다.</li>
-            <li>복습 과제 ‘나눗셈 다시 보기’를 추천합니다.</li>
-          </ul>
-        </section>
-      </div>
-
-      <!-- 학습 이력(클릭 시 04로 이동) -->
-      <section class="mt-10 rounded-2xl bg-sky-100 p-6">
-        <style>
-          .history-link{display:block;border-radius:0.75rem;padding:0.75rem;background:#e6f0fb;transition:background .15s}
-          .history-link:hover{background:#d9e9fb}
-        </style>
-
-        <a href="#s04" class="history-link no-underline text-inherit flex items-center gap-3" aria-label="리포트로 이동: 분수의 나눗셈 (형성, 처방 완료)">
-          <span class="inline-flex items-center h-8 px-3 rounded-lg bg-amber-500/90 text-white text-sm">형성</span>
-          <span class="inline-flex items-center h-8 px-3 rounded-lg bg-slate-300 text-sm">처방 완료</span>
-          <strong class="ml-1">분수의 나눗셈</strong>
-          <span class="ml-4 text-slate-700">25. 10. 21. (수)</span>
-        </a>
-
-        <a href="#s04" class="mt-3 history-link no-underline text-inherit flex items-center gap-3" a
+    /* ---------- 진단/형성 토글: 맵 이미지 전환 ---------- */
+    (function(){
+      const toggle = document.getElementById('modeToggle');
+      const mapImg = document.getElementById('mapImage');
+      if (!toggle || !mapImg) return;
+      toggle.addEventListener('click', (e) => {
+        const btn = e.target.closest('button[data-mode]');
+        if (!btn) return;
+        toggle.querySelectorAll('button[data-mode]').forEach(b => {
+          const active = (b === btn);
+          b.setAttribute('aria-selected', active ? 'true' : 'false');
+          b.className = active
+            ? 'btn h-12 px-6 rounded-full border bg-primary text-white'
+            : 'btn h-12 px-6 rounded-full border bg-white text-slate-700';
+        });
+        const mode = btn.getAttribute('data-mode');
+        mapImg.src = (mode === 'formative')
+          ? './학습맵 이미지(2뎁스).png'
+          : './학습맵 이미지(1뎁스).png';
+      });
+    })();
+  </script>
+</body>
+</html>
