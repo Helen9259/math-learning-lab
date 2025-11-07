@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>수학 학습관 — 교사용 01~05 단일 HTML (수정본)</title>
+  <title>수학 학습관 — 교사용 (index.html)</title>
 
   <!-- Pretendard (CDN) -->
   <link rel="preconnect" href="https://cdn.jsdelivr.net" />
@@ -30,9 +30,10 @@
   <style>
     :focus-visible { outline: 3px solid #0284c7; outline-offset: 2px; }
     html { scroll-behavior:smooth; }
+    body { background:#fff; }
     section.slide { padding-top: 2rem; padding-bottom: 6rem; }
-    .overlay { position: fixed; inset: 0; display: none; background: #fff; z-index: 40; overflow:auto; padding-top: 48px; }
-    .overlay:target { display: block; }
+    .overlay { position: fixed; inset: 0; display: none; background: #fff; z-index: 40; overflow:auto; padding-top: 56px; }
+    .overlay.open { display: block; }
     .btn { display:inline-flex; align-items:center; justify-content:center; }
   </style>
 </head>
@@ -55,12 +56,12 @@
       </button>
 
       <!-- 나의 학습관 -->
-      <a href="#s05" class="btn h-11 px-4 rounded-lg bg-primary text-white hover:opacity-90 text-sm">나의 학습관</a>
+      <a href="#" id="openS05" class="btn h-11 px-4 rounded-lg bg-primary text-white hover:opacity-90 text-sm">나의 학습관</a>
 
       <!-- 내 정보 드롭다운 -->
       <div class="relative">
-        <button class="btn h-11 px-4 rounded-lg bg-primary/80 text-white hover:opacity-90 text-sm" data-dd="info">내 정보 ▾</button>
-        <div class="absolute right-0 mt-2 w-40 rounded-xl border bg-white shadow-lg p-2 hidden" data-dd-panel="info" role="menu">
+        <button class="btn h-11 px-4 rounded-lg bg-primary/80 text-white hover:opacity-90 text-sm" id="infoToggle" aria-expanded="false" aria-controls="infoMenu">내 정보 ▾</button>
+        <div id="infoMenu" class="absolute right-0 mt-2 w-40 rounded-xl border bg-white shadow-lg p-2 hidden" role="menu">
           <a class="block px-3 py-2 rounded-lg hover:bg-slate-50 text-sm" href="#" role="menuitem">활용 안내</a>
           <a class="block px-3 py-2 rounded-lg hover:bg-slate-50 text-sm" href="#" role="menuitem">설정</a>
           <a class="block px-3 py-2 rounded-lg hover:bg-rose-50 text-sm" href="#" role="menuitem">로그아웃</a>
@@ -132,9 +133,9 @@
   </section>
 
   <!-- 03. 세트지 미리보기 (오버레이) -->
-  <section id="s03" class="overlay">
+  <section id="s03" class="overlay" aria-labelledby="s03Title">
     <div class="max-w-6xl mx-auto px-6 pb-24">
-      <h2 class="text-2xl font-extrabold text-center mt-4">형성평가를 만들었어요!</h2>
+      <h2 id="s03Title" class="text-2xl font-extrabold text-center mt-2">형성평가를 만들었어요!</h2>
 
       <div class="mt-4 rounded-2xl border-[2.5px] border-slate-300 p-6 min-h-[320px] relative">
         <div class="h-56 flex items-center justify-center">
@@ -143,15 +144,15 @@
       </div>
 
       <div class="mt-10 flex items-center justify-center gap-8">
-        <!-- 팝업 열기: a 대신 button + data-open-modal -->
+        <!-- 팝업 열기 -->
         <button type="button" class="btn h-12 px-8 rounded-xl bg-primary text-white text-lg" data-open-modal="#share">시작하기</button>
         <a href="#s02" class="btn h-12 px-8 rounded-xl bg-primary/90 text-white text-lg">편집하기</a>
-        <a href="#s01" class="btn h-12 px-8 rounded-xl border">닫기</a>
+        <a href="#s01" class="btn h-12 px-8 rounded-xl border" data-close-s03>닫기</a>
       </div>
     </div>
   </section>
 
-  <!-- 공유 팝업 -->
+  <!-- 공유 팝업 (모달) -->
   <div id="share" class="fixed inset-0 z-50 hidden" role="dialog" aria-modal="true" aria-labelledby="shareTitle">
     <div class="absolute inset-0 bg-black/30" data-close-modal></div>
     <div class="relative max-w-3xl mx-auto mt-24 bg-white rounded-2xl shadow-xl p-8">
@@ -179,34 +180,227 @@
       </div>
       <div class="mt-8 flex items-center justify-end gap-4">
         <button class="btn h-11 px-6 rounded-xl border bg-slate-50" data-close-modal>취소</button>
-        <a href="#s04" class="btn h-11 px-6 rounded-xl bg-primary text-white">시작하기</a>
+        <a href="#" id="openS04" class="btn h-11 px-6 rounded-xl bg-primary text-white">시작하기</a>
       </div>
       <button class="absolute right-4 top-4 w-10 h-10 rounded-full hover:bg-slate-100" data-close-modal aria-label="닫기">✕</button>
     </div>
   </div>
 
-  <!-- 04, 05 오버레이의 뼈대만 유지 -->
-  <section id="s04" class="overlay"><div class="max-w-[1200px] mx-auto px-6 pb-24"><h2 class="text-3xl font-extrabold">리포트</h2></div></section>
-  <section id="s05" class="overlay"><div class="max-w-[1200px] mx-auto px-6 pb-24"><h2 class="text-3xl font-extrabold">나의 학습관</h2></div></section>
+  <!-- 04. 리포트 (오버레이 - 복구 버전) -->
+  <section id="s04" class="overlay" aria-labelledby="s04Title">
+    <div class="max-w-[1200px] mx-auto px-6 pb-28">
+      <h2 id="s04Title" class="text-3xl font-extrabold mt-2">리포트</h2>
+
+      <div class="mt-4 flex items-center gap-3">
+        <span class="inline-flex items-center h-8 px-3 rounded-lg bg-amber-500/90 text-white text-sm">형성</span>
+        <span class="font-semibold">공약수와 최대공약수</span>
+        <span class="h-8 px-3 rounded-lg bg-slate-100 text-sm">2025. 10. 28. (수)</span>
+        <span class="h-8 px-3 rounded-lg bg-slate-100 text-sm">비바클래스 공유</span>
+        <span class="ml-auto text-sm text-slate-600">i</span>
+      </div>
+
+      <hr class="mt-4"/>
+
+      <!-- 그룹 + AI 추천 콘텐츠 3열 -->
+      <section class="mt-6 grid grid-cols-[120px_1fr] gap-4">
+        <!-- 그룹 칼럼 -->
+        <div class="space-y-6 pr-2">
+          <div class="h-24 rounded-xl bg-emerald-100 flex items-center justify-center text-slate-700">
+            <div class="text-center"><div class="text-2xl font-bold">6</div><div class="text-sm">명</div></div>
+          </div>
+          <div class="h-24 rounded-xl bg-amber-100 flex items-center justify-center text-slate-700">
+            <div class="text-center"><div class="text-2xl font-bold">11</div><div class="text-sm">명</div></div>
+          </div>
+          <div class="h-24 rounded-xl bg-rose-100 flex items-center justify-center text-slate-700">
+            <div class="text-center"><div class="text-2xl font-bold">3</div><div class="text-sm">명</div></div>
+          </div>
+        </div>
+
+        <!-- AI 추천 콘텐츠 -->
+        <div class="space-y-6">
+          <!-- 카드 1 -->
+          <div class="rounded-2xl border-2 border-slate-300 p-4 flex items-center gap-4">
+            <div class="w-44 h-28 rounded-lg border overflow-hidden flex items-center justify-center bg-white">
+              <span class="text-xs text-slate-500">미리보기</span>
+            </div>
+            <div class="flex-1">
+              <div class="text-sm text-slate-600">[학습지] AI 연산 학습지 – 3단원 5차시(1)</div>
+            </div>
+            <button class="btn w-12 h-24 rounded-xl bg-slate-300/80 text-2xl">+</button>
+          </div>
+          <!-- 카드 2 -->
+          <div class="rounded-2xl border-2 border-slate-300 p-4 flex items-center gap-4">
+            <div class="w-44 h-28 rounded-lg border overflow-hidden flex items-center justify-center bg-white">
+              <span class="text-xs text-slate-500">미리보기</span>
+            </div>
+            <div class="flex-1">
+              <div class="text-sm text-slate-600">[학습지] AI 연산 학습지 – 3단원 5차시(1)</div>
+            </div>
+            <button class="btn w-12 h-24 rounded-xl bg-slate-300/80 text-2xl">+</button>
+          </div>
+          <!-- 카드 3 -->
+          <div class="rounded-2xl border-2 border-slate-300 p-4 flex items-center gap-4">
+            <div class="w-44 h-28 rounded-lg border overflow-hidden flex items-center justify-center bg-white">
+              <span class="text-xs text-slate-500">미리보기</span>
+            </div>
+            <div class="flex-1">
+              <div class="text-sm text-slate-600">소수의 크기 비교(개념 영상)_68p</div>
+            </div>
+            <button class="btn w-12 h-24 rounded-xl bg-slate-300/80 text-2xl">+</button>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- 하단 고정 바 -->
+    <div class="fixed left-0 right-0 bottom-0 bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/70 border-t z-50">
+      <div class="max-w-[1200px] mx-auto px-6 py-3 flex items-center justify-end gap-3">
+        <a href="#" id="backToS05" class="btn h-12 px-6 rounded-lg border bg-white">목록</a>
+        <button class="btn h-12 px-6 rounded-lg bg-red-600 text-white">처방하기</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- 05. 나의 학습관 (오버레이 - 복구 버전) -->
+  <section id="s05" class="overlay" aria-labelledby="s05Title">
+    <div class="max-w-[1200px] mx-auto px-6 pb-24">
+      <h2 id="s05Title" class="text-3xl font-extrabold mt-2">나의 학습관</h2>
+
+      <div class="mt-6 grid grid-cols-1 md:grid-cols-2 gap-6">
+        <section class="rounded-2xl border-2 border-amber-300 p-6">
+          <h3 class="text-2xl font-extrabold mb-4">형성 평가 분석</h3>
+          <ul class="space-y-3 text-lg">
+            <li>취약 단원</li>
+            <li>1위 덧셈과 뺄셈</li>
+            <li>2위 원</li>
+          </ul>
+        </section>
+        <section class="rounded-2xl bg-amber-100 p-6">
+          <h3 class="text-2xl font-extrabold mb-4">AI 요약</h3>
+          <ul class="list-disc pl-6 space-y-3 text-lg">
+            <li>나눗셈 단원에서 분수 개념 혼동 비율이 37%입니다.</li>
+            <li>복습 과제 ‘나눗셈 다시 보기’를 추천합니다.</li>
+          </ul>
+        </section>
+      </div>
+
+      <!-- 학습 이력(클릭 시 04로 이동) -->
+      <section class="mt-10 rounded-2xl bg-sky-100 p-6">
+        <style>
+          .history-link{display:block;border-radius:0.75rem;padding:0.75rem;background:#e6f0fb;transition:background .15s}
+          .history-link:hover{background:#d9e9fb}
+        </style>
+
+        <a href="#" data-open="#s04" class="history-link no-underline text-inherit flex items-center gap-3" aria-label="리포트로 이동: 분수의 나눗셈 (형성, 처방 완료)">
+          <span class="inline-flex items-center h-8 px-3 rounded-lg bg-amber-500/90 text-white text-sm">형성</span>
+          <span class="inline-flex items-center h-8 px-3 rounded-lg bg-slate-300 text-sm">처방 완료</span>
+          <strong class="ml-1">분수의 나눗셈</strong>
+          <span class="ml-4 text-slate-700">25. 10. 21. (수)</span>
+        </a>
+
+        <a href="#" data-open="#s04" class="mt-3 history-link no-underline text-inherit flex items-center gap-3" aria-label="리포트로 이동: 분수의 나눗셈 (진단, 처방 완료)">
+          <span class="inline-flex items-center h-8 px-3 rounded-lg bg-sky-600 text-white text-sm">진단</span>
+          <span class="inline-flex items-center h-8 px-3 rounded-lg bg-slate-300 text-sm">처방 완료</span>
+          <strong class="ml-1">분수의 나눗셈</strong>
+          <span class="ml-4 text-slate-700">25. 10. 19. (월)</span>
+        </a>
+
+        <div class="mt-4">
+          <button class="btn w-full h-9 rounded-lg bg-slate-100 text-slate-600">+ 더 보기(1/3)</button>
+        </div>
+      </section>
+
+      <div class="mt-6 flex justify-end">
+        <a href="#s01" class="btn h-10 px-4 rounded-lg border">닫기</a>
+      </div>
+    </div>
+  </section>
 
   <!-- 스크립트 -->
   <script>
     /* ---------- 내 정보 드롭다운 ---------- */
-    document.addEventListener('click', (e) => {
-      const btn = e.target.closest('[data-dd]');
-      const panel = btn ? document.querySelector(`[data-dd-panel="${btn.getAttribute('data-dd')}"]`) : null;
-      if (btn && panel) {
-        e.stopPropagation();               // 토글 클릭 시 바깥 클릭 핸들러와 충돌 방지
-        panel.classList.toggle('hidden');  // 열고/닫기
-        return;
-      }
-      // 버튼/패널 외부 클릭 시 모두 닫기
-      if (!e.target.closest('[data-dd-panel]')) {
-        document.querySelectorAll('[data-dd-panel]').forEach(p => p.classList.add('hidden'));
-      }
-    });
+    (function(){
+      const toggle = document.getElementById('infoToggle');
+      const menu = document.getElementById('infoMenu');
+      document.addEventListener('click', (e) => {
+        if (e.target.closest('#infoToggle')) {
+          const open = menu.classList.toggle('hidden');
+          toggle.setAttribute('aria-expanded', (!open).toString());
+          return;
+        }
+        if (!e.target.closest('#infoMenu')) {
+          menu.classList.add('hidden');
+          toggle.setAttribute('aria-expanded', 'false');
+        }
+      }, false);
+    })();
 
-    /* ---------- 공유 팝업 열기/닫기 ---------- */
+    /* ---------- 진단/형성 토글: 맵 이미지 전환 ---------- */
+    (function(){
+      const toggle = document.getElementById('modeToggle');
+      const mapImg = document.getElementById('mapImage');
+      const srcs = {
+        diagnostic: '학습맵 이미지(1뎁스).png',
+        formative:  '학습맵 이미지(2뎁스).png',
+      };
+      function setActive(mode){
+        if (!mapImg) return;
+        mapImg.setAttribute('src', srcs[mode]);
+        toggle.querySelectorAll('button[data-mode]').forEach(b => {
+          const active = (b.getAttribute('data-mode') === mode);
+          b.setAttribute('aria-selected', active ? 'true' : 'false');
+          b.className = active
+            ? 'btn h-12 px-6 rounded-full border bg-primary text-white'
+            : 'btn h-12 px-6 rounded-full border bg-white text-slate-700';
+        });
+      }
+      toggle.addEventListener('click', (e) => {
+        const btn = e.target.closest('button[data-mode]');
+        if (!btn) return;
+        setActive(btn.getAttribute('data-mode'));
+      });
+      // 초기 상태: 형성
+      setActive('formative');
+    })();
+
+    /* ---------- 오버레이(섹션) 열고/닫기 ---------- */
+    function openOverlay(id){
+      document.querySelectorAll('.overlay').forEach(el => el.classList.remove('open'));
+      const el = document.querySelector(id);
+      if (el) el.classList.add('open');
+    }
+    function closeOverlay(id){
+      const el = document.querySelector(id);
+      if (el) el.classList.remove('open');
+    }
+
+    // 해시 이동 시 오버레이 동기화
+    window.addEventListener('hashchange', () => {
+      if (location.hash === '#s03') openOverlay('#s03');
+      else if (location.hash === '#s04') openOverlay('#s04');
+      else if (location.hash === '#s05') openOverlay('#s05');
+      else document.querySelectorAll('.overlay').forEach(el => el.classList.remove('open'));
+    });
+    // 초기 로드시
+    if (location.hash === '#s03') openOverlay('#s03');
+    if (location.hash === '#s04') openOverlay('#s04');
+    if (location.hash === '#s05') openOverlay('#s05');
+
+    // 버튼/링크로 열기
+    document.querySelectorAll('[data-open]').forEach(a => {
+      a.addEventListener('click', (e) => {
+        e.preventDefault();
+        openOverlay(a.getAttribute('data-open'));
+      });
+    });
+    document.getElementById('openS05').addEventListener('click', (e) => { e.preventDefault(); openOverlay('#s05'); });
+    document.getElementById('openS04')?.addEventListener('click', (e) => { e.preventDefault(); closeShare(); openOverlay('#s04'); });
+
+    /* ---------- 공유 모달 열기/닫기 ---------- */
+    function closeShare(){
+      const m = document.getElementById('share');
+      if (m) m.classList.add('hidden');
+    }
     document.addEventListener('click', (e) => {
       const opener = e.target.closest('[data-open-modal]');
       if (opener) {
@@ -214,42 +408,27 @@
         const m = document.querySelector(sel);
         if (m) { m.classList.remove('hidden'); m.dataset.open='true'; }
         e.preventDefault();
-        e.stopPropagation();
         return;
       }
       if (e.target.closest('[data-close-modal]') || e.target.matches('#share > .absolute')) {
-        const m = document.querySelector('#share');
-        if (m) { m.classList.add('hidden'); m.dataset.open='false'; }
+        closeShare();
+      }
+      if (e.target.matches('[data-close-s03]')) {
+        e.preventDefault();
+        closeOverlay('#s03');
       }
     });
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape') {
-        const m = document.querySelector('#share');
-        if (m && m.dataset.open==='true') { m.classList.add('hidden'); m.dataset.open='false'; }
+        closeShare();
       }
     });
 
-    /* ---------- 진단/형성 토글: 맵 이미지 전환 ---------- */
-    (function(){
-      const toggle = document.getElementById('modeToggle');
-      const mapImg = document.getElementById('mapImage');
-      if (!toggle || !mapImg) return;
-      toggle.addEventListener('click', (e) => {
-        const btn = e.target.closest('button[data-mode]');
-        if (!btn) return;
-        toggle.querySelectorAll('button[data-mode]').forEach(b => {
-          const active = (b === btn);
-          b.setAttribute('aria-selected', active ? 'true' : 'false');
-          b.className = active
-            ? 'btn h-12 px-6 rounded-full border bg-primary text-white'
-            : 'btn h-12 px-6 rounded-full border bg-white text-slate-700';
-        });
-        const mode = btn.getAttribute('data-mode');
-        mapImg.src = (mode === 'formative')
-          ? './학습맵 이미지(2뎁스).png'
-          : './학습맵 이미지(1뎁스).png';
-      });
-    })();
+    // 리포트에서 '목록' -> s05
+    document.getElementById('backToS05').addEventListener('click', (e) => {
+      e.preventDefault();
+      openOverlay('#s05');
+    });
   </script>
 </body>
 </html>
